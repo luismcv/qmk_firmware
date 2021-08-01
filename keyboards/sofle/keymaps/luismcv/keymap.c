@@ -1,12 +1,17 @@
 #include QMK_KEYBOARD_H
 
+#ifdef CONSOLE_ENABLE
+#    include "print.h"
+#endif
+
 enum sofle_layers
 {
-    /* _M_XYZ = Mac Os, _W_XYZ = Win/Linux */
     _QWERTY,
     _COLEMAK,
     _LOWER,
     _RAISE,
+    _ACUT,
+    _DIAE,
     _ADJUST,
 };
 
@@ -14,15 +19,28 @@ enum custom_keycodes
 {
     KC_QWERTY = SAFE_RANGE,
     KC_COLEMAK,
-    KC_LOWER,
-    KC_RAISE,
-    KC_ADJUST,
     KC_PRVWD,
     KC_NXTWD,
     KC_LSTRT,
     KC_LEND,
-    KC_DLINE
+    KC_DLINE,
+    COMM_SCLN,
+    DOT_COLN,
+    DEAD_QUOT,
 };
+
+#define N_TILD ALGR(KC_N)
+#define A_ACUT ALGR(KC_A)
+#define E_ACUT ALGR(KC_E)
+#define I_ACUT ALGR(KC_I)
+#define O_ACUT ALGR(KC_O)
+#define U_ACUT ALGR(KC_U)
+#define A_DIAE ALGR(KC_Q)
+#define O_DIAE ALGR(KC_P)
+#define U_DIAE ALGR(KC_Y)
+
+#define SPC_LOW LT(_LOWER, KC_SPC)
+#define BSPC_RAI LT(_RAISE, KC_BSPC)
 
 // clang-format off
 
@@ -44,11 +62,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_QWERTY] = LAYOUT( \
-  KC_GRV,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_GRV, \
-  KC_ESC,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_BSPC, \
-  KC_TAB,   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,  KC_QUOT, \
-  KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_MUTE,     XXXXXXX,KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT, \
-                 KC_LGUI,KC_LALT,KC_LCTRL, KC_LOWER, KC_SPC,      KC_ENT,  KC_RAISE, KC_RCTRL, KC_RALT, KC_RGUI \
+  KC_EQUAL, KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                      KC_6, KC_7, KC_8,      KC_9,     KC_0,     KC_MINUS, \
+  KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y, KC_U, KC_I,      KC_O,     KC_P,     KC_BSLASH, \
+  KC_ESC,   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                      KC_H, KC_J, KC_K,      KC_L,     N_TILD,    DEAD_QUOT, \
+  KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_MUTE,    KC_MPLY, KC_N, KC_M, COMM_SCLN, DOT_COLN, KC_SLASH, KC_RSFT, \
+                 KC_LGUI,KC_LALT,KC_LCTRL, SPC_LOW, KC_DEL,      KC_ENT,  BSPC_RAI, KC_RCTRL, KC_RALT, KC_RGUI \
 ),
 /*
  * COLEMAK
@@ -71,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC,   KC_Q,   KC_W,    KC_F,    KC_P,    KC_G,                      KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN,  KC_BSPC, \
   KC_TAB,   KC_A,   KC_R,    KC_S,    KC_T,    KC_D,                      KC_H,    KC_N,    KC_E,    KC_I,    KC_O,  KC_QUOT, \
   KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_MUTE,      XXXXXXX,KC_K,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT, \
-                 KC_LGUI,KC_LALT,KC_LCTRL,KC_LOWER, KC_ENT,      KC_SPC,  KC_RAISE, KC_RCTRL, KC_RALT, KC_RGUI \
+                 KC_LGUI,KC_LALT,KC_LCTRL,SPC_LOW, KC_ENT,      KC_SPC,  BSPC_RAI, KC_RCTRL, KC_RALT, KC_RGUI \
 ),
 /* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -113,6 +131,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,  KC_INS,  KC_PSCR,   KC_APP,  XXXXXXX, XXXXXXX,                        KC_PGUP, KC_PRVWD,   KC_UP, KC_NXTWD,KC_DLINE, KC_BSPC, \
   _______, KC_LALT,  KC_LCTL,  KC_LSFT,  XXXXXXX, KC_CAPS,                       KC_PGDN,  KC_LEFT, KC_DOWN, KC_RGHT,  KC_DEL, KC_BSPC, \
   _______,KC_UNDO, KC_CUT, KC_COPY, KC_PASTE, XXXXXXX,  _______,       _______,  XXXXXXX, KC_LSTRT, XXXXXXX, KC_LEND,   XXXXXXX, _______, \
+                         _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______ \
+),
+
+
+[_ACUT] = LAYOUT( \
+  _______, _______, _______, _______, _______, _______,                         _______, _______, _______, _______, _______, _______, \
+  _______, _______, _______, E_ACUT , _______, _______,                         _______, U_ACUT , I_ACUT , O_ACUT , _______, _______, \
+  _______, A_ACUT , _______, _______, _______, _______,                         _______, _______, _______, _______, _______, KC_QUOT, \
+  _______, _______, _______, _______, _______, _______,     _______,  _______,  _______, _______, _______, _______, _______, _______, \
+                         _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______ \
+),
+
+[_DIAE] = LAYOUT( \
+  _______, _______, _______, _______, _______, _______,                         _______, _______, _______, _______, _______, _______, \
+  _______, _______, _______, _______, _______, _______,                         _______, U_DIAE , _______, O_DIAE , _______, _______, \
+  _______, A_DIAE , _______, _______, _______, _______,                         _______, _______, _______, _______, _______, S(KC_QUOT), \
+  _______, _______, _______, _______, _______, _______,     _______,  _______,  _______, _______, _______, _______, _______, _______, \
                          _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______ \
 ),
 /* ADJUST
@@ -188,6 +223,12 @@ static void print_status_narrow(void) {
         case _LOWER:
             oled_write_P(PSTR("Lower"), false);
             break;
+        case _ACUT:
+            oled_write_P(PSTR("Acute"), false);
+            break;
+        case _DIAE:
+            oled_write_P(PSTR("Diae"), false);
+            break;
         case _ADJUST:
             oled_write_P(PSTR("Adj\n"), false);
             break;
@@ -216,8 +257,63 @@ void oled_task_user(void) {
 
 #endif
 
+layer_state_t layer_state_set_user(layer_state_t state) { return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST); }
+
+#ifdef CONSOLE_ENABLE
+void oneshot_layer_changed_user(uint8_t layer) {
+    uprintf("Oneshot layer %d, %d on\n", layer, (get_mods() & MOD_MASK_SHIFT));
+    if (!layer) {
+        println("Oneshot layer off");
+    }
+}
+#endif
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    uint16_t masked_keycode = keycode & ~0x1400;
+
+#ifdef CONSOLE_ENABLE
+    uprintf("KEYCODE: %d   %b\n", keycode, keycode);
+    uprintf("MASKED KEYCODE: %d   %b\n", masked_keycode, masked_keycode);
+    uprintf("KC %d %b, MI %d %b, MB %d %b\n", KC_RALT, KC_RALT, MOD_INDEX(KC_RALT), MOD_INDEX(KC_RALT), MOD_BIT(KC_RALT), MOD_BIT(KC_RALT));
+    uprintf("IS_KEY: %d   %d\n", IS_KEY(keycode), IS_KEY(masked_keycode));
+    uprintf("IS_ANY: %d   %d\n", IS_ANY(keycode), IS_ANY(masked_keycode));
+    uprintf("IS_MOD: %d   %d\n", IS_MOD(keycode), IS_MOD(masked_keycode));
+    uprintf("\n");
+#endif
+
+    // Remix of the behaviour of Spanish and US English keyboards
+    // Quote followed by a wovel will add an acute accent to it
+    // Similar with double quotes and diaeresis
+    // Followed by anything else, will just send the quote or double quotes
+    if ((layer_state_is(_ACUT) || layer_state_is(_DIAE)) && IS_KEY(masked_keycode)) {
+        if (record->event.pressed) {
+            switch (masked_keycode) {
+                case KC_A:
+                case KC_E:
+                case KC_I:
+                case KC_O:
+                case KC_U:
+                case KC_Q:
+                case KC_Y:
+                case KC_P:
+                case KC_QUOT:
+                    break;
+                default:
+                    if (layer_state_is(_DIAE)) {
+                        register_mods(MOD_LSFT);
+                    }
+                    register_code(KC_QUOT);
+                    unregister_code(KC_QUOT);
+                    if (layer_state_is(_DIAE)) {
+                        unregister_mods(MOD_LSFT);
+                    }
+            }
+        }
+    }
+
+    uint8_t mod_state = get_mods();
     switch (keycode) {
+
         case KC_QWERTY:
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_QWERTY);
@@ -228,29 +324,50 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 set_single_persistent_default_layer(_COLEMAK);
             }
             return false;
-        case KC_LOWER:
+        // Invert numbers and symbols on base layers
+        case KC_1 ... KC_0:
+            if (layer_state_is(_QWERTY) || layer_state_is(_ACUT) || layer_state_is(_DIAE)) {
+                if (record->event.pressed) {
+                    if (mod_state & MOD_MASK_SHIFT) {
+                        del_mods(MOD_MASK_SHIFT);
+                        register_code(keycode);
+                        set_mods(mod_state);
+                    } else {
+                        register_mods(MOD_LSFT);
+                        register_code(keycode);
+                        set_mods(mod_state);
+                    }
+                } else {
+                    unregister_code(keycode);
+                }
+                return false;
+            }
+        // Semicolon on shift + comma, like in Spanish keyboards
+        case COMM_SCLN:
             if (record->event.pressed) {
-                layer_on(_LOWER);
-                update_tri_layer(_LOWER, _RAISE, _ADJUST);
+                if (mod_state & MOD_MASK_SHIFT) {
+                    del_mods(MOD_MASK_SHIFT);
+                    register_code(KC_SCLN);
+                    set_mods(mod_state);
+                } else {
+                    register_code(KC_COMM);
+                }
             } else {
-                layer_off(_LOWER);
-                update_tri_layer(_LOWER, _RAISE, _ADJUST);
+                unregister_code(KC_SCLN);
+                unregister_code(KC_COMM);
             }
             return false;
-        case KC_RAISE:
+        // Colon on shift + dot, like in Spanish keyboards
+        case DOT_COLN:
             if (record->event.pressed) {
-                layer_on(_RAISE);
-                update_tri_layer(_LOWER, _RAISE, _ADJUST);
+                if (mod_state & MOD_MASK_SHIFT) {
+                    register_code(KC_SCLN);
+                } else {
+                    register_code(KC_DOT);
+                }
             } else {
-                layer_off(_RAISE);
-                update_tri_layer(_LOWER, _RAISE, _ADJUST);
-            }
-            return false;
-        case KC_ADJUST:
-            if (record->event.pressed) {
-                layer_on(_ADJUST);
-            } else {
-                layer_off(_ADJUST);
+                unregister_code(KC_SCLN);
+                unregister_code(KC_DOT);
             }
             return false;
         case KC_PRVWD:
@@ -376,6 +493,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
+
+void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+    uint8_t mod_state = get_mods();
+    switch (keycode) {
+        case DEAD_QUOT:
+            if (record->event.pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    layer_on(_DIAE);
+                    set_oneshot_layer(_DIAE, ONESHOT_START);
+                } else {
+                    layer_on(_ACUT);
+                    set_oneshot_layer(_ACUT, ONESHOT_START);
+                }
+            } else {
+                clear_oneshot_layer_state(ONESHOT_PRESSED);
+            }
+    }
+}
+
 
 #ifdef ENCODER_ENABLE
 
