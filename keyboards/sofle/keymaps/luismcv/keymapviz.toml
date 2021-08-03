@@ -1,0 +1,102 @@
+[legends]
+KC_EXLM = !
+KC_QUES = ? !
+KC_GT = >
+KC_LT = <
+KC_HASH = #
+KC_PERC = %
+KC_AT = @
+KC_DLR = $
+KC_CIRC = ^
+KC_LCBR = {
+KC_LPRN = (
+KC_LBRC = [
+KC_RCBR = }
+KC_RPRN = )
+KC_RBRC = ]
+KC_PIPE = |
+KC_GRV = `
+KC_TILD = ~
+KC_PLUS = +
+KC_AMPR = &
+KC_UNDS = _
+KC_MINS = - _
+KC_EQL = =
+KC_SLSH = / ?
+KC_ASTR = *
+KC_BSLS = \ |
+KC_BSLASH = \ |
+KC_QUOT = ' "
+KC_SCLN = : ;
+KC_PSCR = PrtScr
+KC_NLCK = NumLck
+KC_SLCK = ScrLck
+KC_INS = Ins
+KC_COMM = , <
+KC_DOT = . >
+
+KC_MS_U = MOUSE↑
+KC_MS_D = MOUSE↓
+KC_MS_L = MOUSE←
+KC_MS_R = MOUSE→
+KC_WH_U = WHEEL↑
+KC_WH_D = WHEEL↓
+KC_WBAK = ⯬WBAK
+KC_WFWD = ⯮WFWD
+
+KC_LGUI = LGUI◆
+KC_RGUI = RGUI◆
+KC_LALT = LALT⎇
+KC_RALT = AltGr
+KC_LSFT = LSFT⇧
+KC_RSFT = RSFT⇧
+KC_LCTL = LCTL⎈
+KC_RCTL = RCTL⎈
+
+KC_ENT = ⏎
+
+KC_MINUS = - _
+KC_EQUAL = = +
+N_TILD = Ñ
+DEAD_QUOT = ´ ¨
+KC_SLASH = / ?
+COMM_SCLN = , ;
+DOT_COLN = . :
+KC_1 = 1 !
+KC_2 = 2 @
+KC_3 = 3 #
+KC_4 = 4 $
+KC_5 = 5 %
+KC_6 = 6 ^
+KC_7 = 7 &
+KC_8 = 8 *
+KC_9 = 9 (
+KC_0 = 0 )
+A_ACUT = Á
+E_ACUT = É
+I_ACUT = Í
+O_ACUT = Ó
+U_ACUT = Ú
+A_DIAE = Ä
+O_DIAE = Ö
+U_DIAE = Ü
+S(KC_QUOT) = "
+
+MT_S = S/⇧
+MT_D = D/⎈
+MT_F = F/◆
+MT_V = V/⎇
+MT_G = G/⎇
+MT_H = H/⎇
+MT_M = M/⎇
+MT_J = J/◆
+MT_K = K/⎈
+MT_L = L/⇧
+
+SPC_NAV = SP/NAV
+BSPC_SYM = BS/SYM
+
+PREV_TAB = ←TAB
+NEXT_TAB = →TAB
+PWD_MNGR = PWMNGR
+KC_PAUSE= Pause
