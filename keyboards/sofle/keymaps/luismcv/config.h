@@ -12,3 +12,5 @@
 
 // Prevent accidental repeats of the tap-hold keys when typing quickly.
 #define TAPPING_FORCE_HOLD_PER_KEY
+
+#define COMBO_COUNT 1
