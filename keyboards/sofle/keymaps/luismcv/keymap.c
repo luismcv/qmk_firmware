@@ -18,6 +18,8 @@ enum sofle_layers
     _ADJUST,
 };
 
+const char PROGMEM layer_name[10][5] = {"Qwrt", "Clmk", "Sym", "SymL", "SymR", "Nav", "Num", "Acut", "Diae", "Adj"};
+
 enum custom_keycodes
 {
     KC_QWERTY = SAFE_RANGE,
@@ -60,7 +62,6 @@ enum custom_keycodes
 #define DEL_NAV LT(_NAV, KC_DEL)
 #define BSPC_SYM LT(_SYM, KC_BSPC)
 #define ENT_NUM LT(_NUM, KC_ENT)
-
 
 #define PREV_TAB C(KC_PGUP)
 #define NEXT_TAB C(KC_PGDOWN)
@@ -315,59 +316,14 @@ static void render_logo(void) {
 }
 
 static void print_status_narrow(void) {
-    // Print current mode
-    oled_write_P(PSTR("\n\n"), false);
-    oled_write_ln_P(PSTR("MODE"), false);
-    oled_write_ln_P(PSTR(""), false);
-    if (keymap_config.swap_lctl_lgui) {
-        oled_write_ln_P(PSTR("MAC"), false);
-    } else {
-        oled_write_ln_P(PSTR("WIN"), false);
-    }
-
-    switch (get_highest_layer(default_layer_state)) {
-        case _QWERTY:
-            oled_write_ln_P(PSTR("Qwrt"), false);
-            break;
-        case _COLEMAK:
-            oled_write_ln_P(PSTR("Clmk"), false);
-            break;
-        default:
-            oled_write_P(PSTR("Undef"), false);
-    }
-    oled_write_P(PSTR("\n\n"), false);
-    // Print current layer
     oled_write_ln_P(PSTR("LAYER"), false);
-    switch (get_highest_layer(layer_state)) {
-        case _COLEMAK:
-        case _QWERTY:
-            oled_write_P(PSTR("Base"), false);
-            break;
-        case _NAV:
-            oled_write_P(PSTR("Nav"), false);
-            break;
-        case _SYM:
-            oled_write_P(PSTR("Sym"), false);
-            break;
-        case _SYM_L:
-            oled_write_P(PSTR("SymL"), false);
-            break;
-        case _SYM_R:
-            oled_write_P(PSTR("SymR"), false);
-            break;
-        case _ACUT:
-            oled_write_P(PSTR("Acute"), false);
-            break;
-        case _DIAE:
-            oled_write_P(PSTR("Diae"), false);
-            break;
-        case _ADJUST:
-            oled_write_P(PSTR("Adj"), false);
-            break;
-        default:
-            oled_write_ln_P(PSTR("Undef"), false);
-    }
+    oled_write_ln_P(layer_name[get_highest_layer(layer_state)], false);
     oled_write_P(PSTR("\n\n"), false);
+    uint8_t mod_state = get_mods();
+    oled_write_ln_P(PSTR("SHIFT"), mod_state & MOD_MASK_SHIFT);
+    oled_write_ln_P(PSTR("CTRL\n"), mod_state & MOD_MASK_CTRL);
+    oled_write_ln_P(PSTR("GUI\n"), mod_state & MOD_MASK_GUI);
+    oled_write_ln_P(PSTR("ALT\n"), mod_state & MOD_MASK_ALT);
     led_t led_usb_state = host_keyboard_led_state();
     oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
 }
