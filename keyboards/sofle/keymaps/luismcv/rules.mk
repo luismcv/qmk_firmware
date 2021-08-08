@@ -9,6 +9,7 @@ CONSOLE_ENABLE = no
 EXTRAKEY_ENABLE = yes
 MOUSEKEY_ENABLE = yes
 COMBO_ENABLE = yes
+LTO_ENABLE = yes
 
 ifeq ($(strip $(ENCODER_ENABLE)), yes)
 	SRC += encoder.c
