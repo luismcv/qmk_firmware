@@ -10,4 +10,11 @@ EXTRAKEY_ENABLE = yes
 MOUSEKEY_ENABLE = yes
 COMBO_ENABLE = yes
 
-#LTO_ENABLE = yes
+ifeq ($(strip $(ENCODER_ENABLE)), yes)
+	SRC += encoder.c
+endif
+
+ifeq ($(strip $(OLED_DRIVER_ENABLE)), yes)
+	SRC += oled.c
+endif
+
