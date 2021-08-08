@@ -13,8 +13,6 @@ enum custom_keycodes
 };
 
 // Mappings for EurKEY layout
-#define N_TILD ALGR(KC_N)
-
 #define A_ACUT ALGR(KC_X)
 #define E_ACUT ALGR(KC_G)
 #define I_ACUT ALGR(KC_B)
@@ -58,19 +56,19 @@ enum custom_keycodes
 #define DUPLIC RCS(KC_D)
 #define LINBRK RCTL(KC_ENT)
 
+#define N_TILD KC_INT1
+
 // Left-hand home row mods
-#define MT_S LSFT_T(KC_S)
-#define MT_D LCTL_T(KC_D)
-#define MT_F LGUI_T(KC_F)
-#define MT_G LALT_T(KC_G)
-#define MT_V LALT_T(KC_V)
+#define MT_A LSFT_T(KC_A)
+#define MT_S LCTL_T(KC_S)
+#define MT_D LGUI_T(KC_D)
+#define MT_F LALT_T(KC_F)
 
 // Right-hand home row mods
-#define MT_M LALT_T(KC_M)
-#define MT_H LALT_T(KC_H)
-#define MT_J RGUI_T(KC_J)
-#define MT_K RCTL_T(KC_K)
-#define MT_L RSFT_T(KC_L)
+#define MT_J LALT_T(KC_J)
+#define MT_K RGUI_T(KC_K)
+#define MT_L RCTL_T(KC_L)
+#define MT_NT RSFT_T(N_TILD)
 
 bool          layer_lock       = false;
 bool          layer_lock_done  = false;
@@ -83,9 +81,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
  * | = +  |  Q   |  W   |  E   |  R   |  T   |                |  Y   |  U   |  I   |  O   |  P   | \ |  |
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
- * | TAB  |  A   | S/⇧  | D/⎈  | F/◆  | G/⎇  |                | H/⎇  | J/◆  | K/⎈  | L/⇧  |  Ñ   | ´ ¨  |
+ * | TAB  | A/⇧  | S/⎈  | D/◆  | F/⎇  |  G   |                |  H   | J/⎇  | K/◆  | L/⎈  | M/⇧  | ´ ¨  |
  * |------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------|
- * |LSFT⇧ |  Z   |  X   |  C   | V/⎇  |  B   | MUTE |  | MPLY |  N   | M/⎇  | , ;  | . :  | / ?  |RSFT⇧ |
+ * |LSFT⇧ |  Z   |  X   |  C   |  V   |  B   | MUTE |  | MPLY |  N   |  M   | , ;  | . :  | / ?  |RSFT⇧ |
  * `------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------'
  *               | BTN2 |SCROLL| BTN1 |SP/SYM|DL/NAV|  |EN/NUM|BS/SYM|RCTL⎈ |AltGr |RGUI◆ |
  *               `----------------------------------'  `----------------------------------'
@@ -93,8 +91,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT( \
   KC_ESC,    KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,   KC_7,   KC_8,      KC_9,     KC_0,      KC_MINUS, \
   KC_EQUAL,  KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,   KC_U,   KC_I,      KC_O,     KC_P,      KC_BSLASH, \
-  KC_TAB,    KC_A,   MT_S,    MT_D,    MT_F,    MT_G,                      MT_H,   MT_J,   MT_K,      MT_L,     N_TILD,    DEAD_QUOT, \
-  KC_LSFT,   KC_Z,   KC_X,    KC_C,    MT_V,    KC_B, KC_MUTE,  KC_MPLY,   KC_N,   MT_M,   COMM_SCLN, DOT_COLN, KC_SLASH,  KC_RSFT, \
+  KC_TAB,    MT_A,   MT_S,    MT_D,    MT_F,    KC_G,                      KC_H,   MT_J,   MT_K,      MT_L,     MT_NT,    DEAD_QUOT, \
+  KC_LSFT,   KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_MUTE,  KC_MPLY,   KC_N,   KC_M,   COMM_SCLN, DOT_COLN, KC_SLASH,  KC_RSFT, \
                 KC_BTN2, SCROLL, KC_BTN1, SPC_SYM, DEL_NAV,      ENT_NUM,  BSPC_SYM, KC_RCTL, KC_RALT, KC_RGUI \
 ),
 
@@ -183,7 +181,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
  * |      |PrtScr|ScrLck|Pause |NumLck|      |                | HOME | PGUP |  UP  | PGDN | Ins  | F12  |
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
- * |      | CAPS |LSFT⇧ |LCTL⎈ |LGUI◆ |LALT⎇ |                | END  | LEFT | DOWN | RGHT | DEL  | BSPC |
+ * |      |LSFT⇧ |LCTL⎈ |LGUI◆ |LALT⎇ | CAPS |                | END  | LEFT | DOWN | RGHT | DEL  | BSPC |
  * |------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------|
  * |      | UNDO | CUT  | COPY |PASTE |      |      |  |      |⯬WBAK | ←TAB |PWMNGR| →TAB |⯮WFWD |      |
  * `------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------'
@@ -193,7 +191,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_NAV] = LAYOUT( \
   LYRLCK,  KC_F1,   KC_F2,   KC_F3,    KC_F4,   KC_F5,                       KC_F6,   KC_F7,    KC_F8,    KC_F9,    KC_F10,  KC_F11,\
   _______, KC_PSCR, KC_SLCK, KC_PAUSE, KC_NLCK, XXXXXXX,                     KC_HOME, KC_PGUP,  KC_UP,    KC_PGDN,   KC_INS,  KC_F12, \
-  _______, KC_CAPS, KC_LSFT, KC_LCTL,  KC_LGUI, KC_LALT,                     KC_END,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_DEL,  KC_BSPC, \
+  _______, KC_LSFT, KC_LCTL, KC_LGUI,  KC_LALT, KC_CAPS,                     KC_END,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_DEL,  KC_BSPC, \
   _______, UNDO,    CUT,     COPY,     PASTE,   XXXXXXX, _______,   _______, KC_WBAK, PREV_TAB, PWD_MNGR, NEXT_TAB, KC_WFWD, _______, \
                    _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______ \
 ),
@@ -286,7 +284,6 @@ enum combos
 const uint16_t PROGMEM btn1btn2_combo[] = {KC_BTN1, KC_BTN2, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {[BTN1_BTN2] = COMBO(btn1btn2_combo, KC_BTN3)};
-
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     if (layer_lock && prev_layer_state != 0) {
@@ -423,6 +420,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(KC_DOT);
             }
             return false;
+        case MT_NT:
+            // Workaround for mod-tap limitation
+            // to basic keycodes
+            if (record->tap.count > 0) {
+                if (record->event.pressed) {
+                    tap_code16(ALGR(KC_N));
+                } 
+                return false;
+            }
+            return true;
         case SCROLL:
             if (record->event.pressed) {
                 tap_code16(LCAG(KC_1));
@@ -471,8 +478,8 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case MT_S:
-        case MT_L:
+        case MT_A:
+        case MT_NT:
             return true;
         default:
             return false;
