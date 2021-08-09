@@ -1,9 +1,11 @@
 #include QMK_KEYBOARD_H
 #include "keymap.h"
+#include "user_config.h"
 
 const char PROGMEM LAYER_NAMES
 
-static void render_logo(void) {
+    static void
+    render_logo(void) {
     // clang-format off
     static const char PROGMEM qmk_logo[] = {
         0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
@@ -16,9 +18,18 @@ static void render_logo(void) {
 }
 
 static void print_status_narrow(void) {
-    oled_write_ln_P(PSTR("LAYER"), false);
-    oled_write_ln_P(layer_name[get_highest_layer(layer_state)], layer_lock);
-    oled_write_P(PSTR("\n\n"), false);
+    // oled_write_ln_P(PSTR("LAYER"), false);
+    if (get_highest_layer(layer_state) != 0) {
+        oled_write_ln_P(layer_name[get_highest_layer(layer_state)], layer_lock);
+    } else {
+        oled_write_ln_P(layer_name[get_highest_layer(default_layer_state)], layer_lock);
+    }
+    oled_write_P(PSTR("\n"), false);
+    if (user_config.shifted_numbers) {
+        oled_write_ln_P(PSTR("Syms\n"), false);
+    } else {
+        oled_write_ln_P(PSTR("Nums\n"), false);
+    }
     uint8_t mod_state = get_mods();
     oled_write_ln_P(PSTR("SHIFT"), mod_state & MOD_MASK_SHIFT);
     oled_write_ln_P(PSTR("CTRL\n"), mod_state & MOD_MASK_CTRL);

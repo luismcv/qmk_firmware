@@ -1,6 +1,7 @@
 [legends]
 A_ACUT = Á
 A_DIAE = Ä
+ALT_TAB = ALTAB
 BSPC_SYM = BS/SYM
 CCED = Ç
 COMM_SCLN = , ;
@@ -101,7 +102,7 @@ MT_F = F/⎇
 MT_J = J/⎇
 MT_K = K/◆
 MT_L = L/⎈
-MT_NT = M/⇧
+MT_NT = Ñ/⇧
 MT_S = S/⎈
 MUL = ×
 NEXT_TAB = →TAB
@@ -111,6 +112,7 @@ O_DIAE = Ö
 PREV_TAB = ←TAB
 PWD_MNGR = PWMNGR
 RDQUO = ”
+SFT_NUM = SFTNUM
 SPC_SYM = SP/SYM
 U_ACUT = Ú
 U_DIAE = Ü
