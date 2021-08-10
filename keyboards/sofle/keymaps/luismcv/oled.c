@@ -53,3 +53,5 @@ void oled_task_user(void) {
         render_logo();
     }
 }
+
+void suspend_power_down_user(void) { oled_off(); }
