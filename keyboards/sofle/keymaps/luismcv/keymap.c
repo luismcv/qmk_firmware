@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ALT_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,   KC_U,   KC_I,      KC_O,     KC_P,      KC_BSLASH, \
   KC_TAB,    MT_A,   MT_S,    MT_D,    MT_F,    KC_G,                      KC_H,   MT_J,   MT_K,      MT_L,     MT_NT,    DEAD_QUOT, \
   KC_LSFT,   KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_MUTE,  KC_MPLY,   KC_N,   KC_M,   COMM_SCLN, DOT_COLN, KC_SLASH,  KC_RSFT, \
-                KC_BTN2, SCROLL, KC_BTN1, SPC_SYM, DEL_NAV,      ENT_NUM,  BSPC_SYM, KC_RCTL, KC_RALT, KC_RGUI \
+                KC_BTN2, SCROLL, KC_BTN1, SPC_SYM, DEL_NAV,      ENT_NUM,  BSPC_SYM, KC_RALT, KC_RGUI, KC_RCTL \
 ),
 
 /* ,-----------------------------------------.                ,-----------------------------------------.
