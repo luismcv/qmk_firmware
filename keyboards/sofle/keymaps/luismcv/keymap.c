@@ -555,7 +555,7 @@ bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
 
 void matrix_scan_user(void) {
     if (is_alt_tab_active) {
-        if (timer_elapsed(alt_tab_timer) > 500) {
+        if (timer_elapsed(alt_tab_timer) > 750) {
             unregister_code(KC_LALT);
             is_alt_tab_active = false;
         }
