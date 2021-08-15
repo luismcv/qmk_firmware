@@ -137,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 /* ,-----------------------------------------.                ,-----------------------------------------.
- * | LOCK |  ¡   |  ª   |  º   |  £   |  €   |                |  ^   |  &   |  *   |  “   |  ”   | BSPC |
+ * |ESC/LC|  ¡   |  ª   |  º   |  £   |  €   |                |  ^   |  &   |  *   |  “   |  ”   | BSPC |
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
  * |  ×   |  !   |  @   |  #   |  $   |  %   |                |  '   |  "   |  {   |  }   |  /   |  \   |
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
@@ -157,7 +157,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 /* ,-----------------------------------------.                ,-----------------------------------------.
- * | LOCK |NumLck|  P7  |  P8  |  P9  |  P-  |                |  ^   |  &   |  *   |  “   |  ”   | BSPC |
+ * |ESC/LC|NumLck|  P7  |  P8  |  P9  |  P-  |                |  ^   |  &   |  *   |  “   |  ”   | BSPC |
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
  * |      |  P/  |  P4  |  P5  |  P6  |  P+  |                |  '   |  "   |  {   |  }   |  /   |  \   |
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
@@ -177,7 +177,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 /* ,-----------------------------------------.                ,-----------------------------------------.
- * | LOCK |  ¡   |  ª   |  º   |  £   |  €   |                |NumLck|  P7  |  P8  |  P9  |  P-  | BSPC |
+ * |ESC/LC|  ¡   |  ª   |  º   |  £   |  €   |                |NumLck|  P7  |  P8  |  P9  |  P-  | BSPC |
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
  * |  ×   |  !   |  @   |  #   |  $   |  %   |                |  P/  |  P4  |  P5  |  P6  |  P+  |      |
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
@@ -197,7 +197,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 /* ,-----------------------------------------.                ,-----------------------------------------.
- * | LOCK |  F1  |  F2  |  F3  |  F4  |  F5  |                |  F6  |  F7  |  F8  |  F9  | F10  | F11  |
+ * |ESC/LC|  F1  |  F2  |  F3  |  F4  |  F5  |                |  F6  |  F7  |  F8  |  F9  | F10  | F11  |
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
  * |      |PrtScr|ScrLck|Pause |NumLck|      |                | HOME | PGDN |  UP  | PGUP | Ins  | F12  |
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
@@ -217,7 +217,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 /* ,-----------------------------------------.                ,-----------------------------------------.
- * | LOCK |  F1  |  F2  |  F3  |  F4  |  F5  |                |  F6  |  F7  |  F8  |  F9  | F10  | F11  |
+ * |ESC/LC|  F1  |  F2  |  F3  |  F4  |  F5  |                |  F6  |  F7  |  F8  |  F9  | F10  | F11  |
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
  * |      |      | ACL0 | ACL1 | ACL2 |      |                | WH_L |WHEEL↓|MOUSE↑|WHEEL↑| WH_R | F12  |
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
@@ -237,7 +237,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
  
 /* ,-----------------------------------------.                ,-----------------------------------------.
- * | LOCK |  F2  | & 7  | * 8  | ( 9  |  P-  |                | UNDO | CUT  | COPY |PASTE |PASTEU|DUPLIC|
+ * |ESC/LC|  F2  | & 7  | * 8  | ( 9  |  P-  |                | UNDO | CUT  | COPY |PASTE |PASTEU|DUPLIC|
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
  * |      |  P/  | $ 4  | % 5  | ^ 6  |  P+  |                | HOME | PGDN |  UP  | PGUP | Ins  |FILTER|
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
@@ -486,19 +486,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
         case LYRLCK:
-            if (record->event.pressed) {
-                if (layer_lock_done) {
-                    /* Making sure that we can always leave the layer
-                     by tapping the lock key, without having to worry about which
-                     layer we're in to use the corresponding activation key or
-                     even if this isn't present in the layer.
-                     Clearing all layers will do for now. Might have to be more
-                     specific in the future and only disable the locked one. */
-                    layer_clear();
-                    layer_lock_done = false;
-                    layer_lock      = false;
+            if (mod_state & MOD_MASK_SHIFT) {
+                if (record->event.pressed) {
+                    if (layer_lock_done) {
+                        /* Making sure that we can always leave the layer
+                         by tapping the lock key, without having to worry about which
+                         layer we're in to use the corresponding activation key or
+                         even if this isn't present in the layer.
+                         Clearing all layers will do for now. Might have to be more
+                         specific in the future and only disable the locked one. */
+                        layer_clear();
+                        layer_lock_done = false;
+                        layer_lock      = false;
+                    } else {
+                        layer_lock = !layer_lock;
+                    }
+                }
+            } else {
+                if (record->event.pressed) {
+                    register_code(KC_ESC);
                 } else {
-                    layer_lock = !layer_lock;
+                    unregister_code(KC_ESC);
                 }
             }
             return false;
